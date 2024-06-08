@@ -1,5 +1,27 @@
 ---
+import '../styles/global.css';
+import '../components/Navigation.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+const pageTitle = "Aboot my"; 
 
+const identity = {
+	firstName: "Sarah",
+	country: "Canada",
+	occupation: "Technical Writer",
+	hobbies: ["photography", "birdwatching", "baselball"],
+};
+
+const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"]
+
+
+const happy = true;
+const finished = false;
+const goal = 3;
+
+const skillColor = "navy";
+const fontWeight = "bold";
+const textCase = "uppercase";
 ---
 
 <html lang="ru">
@@ -8,19 +30,50 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>{pageTitle}</title>
+		<style define:vars={{skillColor, fontWeight, textCase}}>
+			h1 {
+				color: purple;
+				font-size: 4em;
+			}
+			.skill {
+				color: var(--skillColor);
+				font-weight: var(--fontWeight);
+				font-size: bold;
+				text-transform: var(--textCase);
+			}
+			.hh2 {
+				background-color: blue;
+				color: gray;
+			}
+		</style>
 	</head>
 
 <body>
-	<a href="/">Home</a>
-	<a href="/about/">About</a>
-	<a href="/blog/">Блог</a>
 
-	<h1>О нас</h1>
-	<h2>Мы группа энтузиастов, делаем не за деньги а потому что нам это нравиться/h2>
- 	<p>Мы кодим для кайфа, не примледуюя никаких материальных ценностие. Это наше увлечение.</p>
+	<Navigation />
+
+	<h1>{pageTitle}</h1>
 	<p>Присоединяйся к команед LinixGk если ты такой же как мы, независимо от твоего уровня знаний в IT.</p>
 	<p>Наш дивиз: Все равны.</p>
+	
+	<p>Here are a few facts about me:</p>
+	<ul>
+		<li>My name is {identity.firstName}</li>
+		<li>I Live in {identity.country} and I work as a {identity.occupation}.</li>
+		{identity.hobbies.length >= 2 &&
+		<li>Two of my hobboies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
+		}
+	</ul>
 
+	{happy && <p>I am happy to be learning Astro!</p>}
+	{finished && <p>I finished this tutorial!</p>}
+	{goal === 2 ? <p>My goal is to finish in 3 das</p> : <p>My goal is not 3 days. </p>}
+
+	<p class="hh2">My skills:</p>
+	<ul>
+		{skills.map((skill) => <li class="skill">{skill}</li>)}
+	</ul>
+	<Footer />
 	</body>
 </html>
